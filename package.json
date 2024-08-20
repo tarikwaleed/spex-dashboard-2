@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nivo/funnel": "^0.87.0",
+    "@nivo/pie": "^0.87.0",
+    "@nivo/waffle": "^0.87.0",
     "apexcharts": "^3.45.2",
     "flatpickr": "^4.6.13",
     "jsvectormap": "^1.6.0",
