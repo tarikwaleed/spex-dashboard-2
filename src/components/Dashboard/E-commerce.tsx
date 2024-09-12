@@ -6,6 +6,7 @@ import ChartThree from "../Charts/ChartThree";
 import CardDataStats from "../CardDataStats";
 import { useState, useEffect } from "react";
 
+import { FaBeer } from 'react-icons/fa';
 const ECommerce: React.FC = () => {
   const [stats, setStats] = useState([]);
 
