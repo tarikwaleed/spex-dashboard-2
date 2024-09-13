@@ -1,14 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ResponsiveWaffle } from "@nivo/waffle";
+import usePeriodStore from "@/store/usePeriodStore";
 
 const TopClients = () => {
   const [topClients, setTopClients] = useState([]);
+  const { period } = usePeriodStore();
 
   useEffect(() => {
     const fetchTopClients = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/sales/clients");
+        const res= await fetch(
+          `http://localhost:8000/api/sales/clients?period=${period}`,
+        );
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
@@ -19,7 +23,7 @@ const TopClients = () => {
       }
     };
     fetchTopClients();
-  }, []);
+  }, [period]);
 
   return (
     <>

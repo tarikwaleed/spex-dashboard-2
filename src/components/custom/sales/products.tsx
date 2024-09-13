@@ -1,29 +1,37 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
-
-const Products = ({ filter, colorScheme }:{filter:string,colorScheme:string}) => {
+import usePeriodStore from "@/store/usePeriodStore";
+const Products = ({
+  filter,
+  colorScheme,
+}: {
+  filter: string;
+  colorScheme: string;
+}) => {
   const [topSales, setTopSales] = useState([]);
+  const { period } = usePeriodStore();
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/sales/products?period=${period}&filter=${filter}`,
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      setTopSales(data);
+    } catch (error) {
+      console.error("Error fetching sales data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:8000/api/sales/products?filter=${filter}`,
-        );
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
-        setTopSales(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
-  }, [filter]); // Re-fetch data when the filter changes
-
+  }, [period, filter]);
   return (
     <>
       <div className="">

@@ -19,29 +19,35 @@ interface StatsData {
   revenue_to_profit_percentage: number;
 }
 
+import usePeriodStore from "@/store/usePeriodStore";
+
 const Stats = (props: Props) => {
   const [stats, setStats] = useState<StatsData | null>(null);
+  const { period, setPeriod } = usePeriodStore();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/sales/daily/stats`,
-        );
-        // const res = await fetch(`http://localhost:8000/api/sales/daily/stats`);
+        // Set API endpoint based on the period
+        const endpoint =
+          period === "monthly"
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/sales/stats?period=monthly`
+            : `${process.env.NEXT_PUBLIC_BASE_API_URL}/sales/stats`;
+
+        const res = await fetch(endpoint);
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await res.json();
         setStats(data);
-        console.log(data);
+        console.log(data); // Log the data when period changes
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []); // Re-fetch data when the filter changes
+  }, [period]); // Re-fetch data when the period changes
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
