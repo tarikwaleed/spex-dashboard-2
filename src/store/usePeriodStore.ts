@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface PeriodState {
-  period: 'daily' | 'monthly';
-  setPeriod: (newPeriod: 'daily' | 'monthly') => void;
+  period: string;
+  setPeriod: (value: string) => void;
 }
 
 const usePeriodStore = create<PeriodState>((set, get) => ({

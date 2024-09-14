@@ -2,6 +2,13 @@
 import { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import usePeriodStore from "@/store/usePeriodStore";
+
+interface ProductData {
+    id: string;
+    label: string;
+    value: number;
+    color: string;
+}
 const Products = ({
   filter,
   colorScheme,
@@ -9,13 +16,13 @@ const Products = ({
   filter: string;
   colorScheme: string;
 }) => {
-  const [topSales, setTopSales] = useState([]);
+  const [topSales, setTopSales] = useState<ProductData[]>([]);
   const { period } = usePeriodStore();
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/sales/products?period=${period}&filter=${filter}`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/sales/products?period=${period}&filter=${filter}`,
       );
 
       if (!response.ok) {
@@ -37,7 +44,7 @@ const Products = ({
       <div className="">
         <div>
           <div className="mx-auto h-96 w-full">
-            <MyResponsivePie chartData={topSales} colorScheme={colorScheme} />
+            <MyResponsivePie chartData={topSales}  />
           </div>
         </div>
       </div>
@@ -45,11 +52,10 @@ const Products = ({
   );
 };
 
-const MyResponsivePie = ({ chartData, colorScheme }) => (
+const MyResponsivePie = ({ chartData }:{chartData:ProductData[]}) => (
   <ResponsivePie
     data={chartData}
     startAngle={108}
-    colors={{ scheme: colorScheme }} // Use the passed color scheme
     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
     innerRadius={0.25}
     padAngle={0.7}

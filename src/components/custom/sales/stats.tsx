@@ -51,13 +51,13 @@ const Stats = (props: Props) => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="فاتورة" total={stats?.invoice_count} rate="">
+        <CardDataStats title="فاتورة" total={stats?.invoice_count.toString()??"0"} rate="">
           <FaFileInvoice />
         </CardDataStats>
 
         <CardDataStats
           title="اجمالي المبيعات"
-          total={stats?.total_revenue}
+          total={stats?.total_revenue.toString()??"0"}
           rate=""
         >
           <FaDollarSign />
@@ -65,19 +65,19 @@ const Stats = (props: Props) => {
 
         <CardDataStats
           title="متوسط قيمة الفاتورة"
-          total={stats?.average_revenue}
+          total={stats?.average_revenue.toString()??"0"}
           rate=""
         >
           <FaChartLine />
         </CardDataStats>
 
-        <CardDataStats title="احمالي الربح" total={stats?.total_profit} rate="">
+        <CardDataStats title="احمالي الربح" total={stats?.total_profit.toString()??"0"} rate="">
           <FaPiggyBank />
         </CardDataStats>
 
         <CardDataStats
           title="نسبة الربح"
-          total={stats?.revenue_to_profit_percentage}
+          total={stats?.revenue_to_profit_percentage.toString()??"0"}
           rate=""
         >
           <FaPercentage />

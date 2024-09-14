@@ -3,8 +3,7 @@
 import { ApexOptions } from "apexcharts";
 import React from "react";
 import dynamic from "next/dynamic";
-import TopProducts from "../custom/sales/top-products";
-import Products from "../custom/sales/products";
+import Products from "@/components/custom/sales/products";
 
 const ChartTwo: React.FC = () => {
   return (

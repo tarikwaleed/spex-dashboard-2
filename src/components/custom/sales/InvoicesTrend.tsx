@@ -196,7 +196,7 @@ const MyResponsiveLine = ({ data, period, tickValues }: any) => {
       ]}
       enablePointLabel
       enableTouchCrosshair
-      height={400}
+      // height={400}
       margin={{
         bottom: 60,
         left: 80,

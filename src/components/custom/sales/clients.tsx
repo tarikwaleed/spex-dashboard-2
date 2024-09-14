@@ -11,7 +11,7 @@ const TopClients = () => {
     const fetchTopClients = async () => {
       try {
         const res= await fetch(
-          `http://localhost:8000/api/sales/clients?period=${period}`,
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/sales/clients?period=${period}`,
         );
         if (!res.ok) {
           throw new Error("Network response was not ok");
